@@ -1,6 +1,9 @@
-parol_user = "123python"
-parol = input("Введите пароль: ")
-while parol != parol_user:
-    print("Неверный пароль")
-    parol = input("Попробуйте еще раз. Введите пароль: ")
-print("Поздравляю! Вы ввели правильный пароль")
+user_password = "123python"
+
+while True:
+    input_password = input("Введите пароль: ")
+    if input_password == user_password:
+        print("Поздравляю! Вы ввели правильный пароль")
+        break
+    else:
+        print("Пароль неверный. Попробуйте еще раз")
