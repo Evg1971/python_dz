@@ -9,7 +9,7 @@ team = [
 def calculate_average(grades):
     try:
         return sum(grades) / len(grades)
-    except ValueError:
+    except ZeroDivisionError:
         print('Ошибка. Список оценок пуст')
         return 0
     except TypeError:
@@ -23,23 +23,31 @@ def student_info(team):
         status = 'Успешен' if average >= 75 else 'Отстающий'
         print(f"Студент: {student['name']}")
         print(f"Средний балл: {average:.2f}")
-        print(f"Статус: {status}")
-        print()
+        print(f"Статус: {status}\n")
 
     total_average = sum(calculate_average(student['grades']) for student in team) / len(team)
-    print(f"Общий средний балл: {total_average:.2f}")
-    print()
+    print(f"Общий средний балл: {total_average:.2f}\n")
+
+
+def add_student(team, name, grades):
+    team.append({'name': name, 'grades': grades})
+    print(f"Добавился новый студент: {name}")
+
+
+def remove_student_min_average(team):
+    student_min_average = min(team, key=lambda student: calculate_average(student['grades']))
+    team.remove(student_min_average)
+    print(f"Удален студент: {student_min_average['name']}")
 
 
 print('Список группы:')
 student_info(team)
 
-team.append({'name': 'Ivan', 'grades': [98, 96, 100]})
-print(f"Добавился новый студент: {team[-1]['name']}")
+add_student(team, 'Ivan', [98, 96, 100])
 student_info(team)
 
-student_min_average = min(team, key=lambda student: calculate_average(student['grades']))
-team.remove(student_min_average)
+remove_student_min_average(team)
+student_info(team)
 
-print('Окончательная информация: ')
+add_student(team, 'Anna', [])
 student_info(team)
