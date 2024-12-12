@@ -11,9 +11,10 @@ def book_list_view(library):
     if not library:
         print("В библиотеке книг нет")
     else:
-        print("Список книг в библиотеке: ")
-        for book in library:
-            print(book)
+        print("Библиотечный каталог: ")
+        for book, info in library.items():
+            print(f"Название книги: '{book}' - автор:{info['author']}, "
+                  f"год издания: {info['year']}, статус: {info['available']}")
 
 
 book_list_view(library)
