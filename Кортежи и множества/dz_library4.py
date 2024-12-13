@@ -32,44 +32,33 @@ def add_book(title, author, year):
 
 
 def remove_book(title):
-    try:
-        if not title in library:
-            print(f"Книга '{title}' в библиотеке не найдена.\n")
-        else:
-            del library[title]
-            print(f"Книга '{title}' из библиотеки удалена.\n")
-    except KeyError as e:
-        print(f"Ошибка доступа к ключу {e}")
-    except Exception as e:
-        print(f"Произошла другая ошибка: {e}")
+    if not title in library:
+        print(f"Книга '{title}' в библиотеке не найдена.\n")
+    else:
+        del library[title]
+        print(f"Книга '{title}' из библиотеки удалена.\n")
 
 
 def issue_book(title):
-    try:
-        if title in library:
-            if library[title]["available"] == "в наличии":
-                library[title]["available"] = "выдана"
-                print(f"Книга '{title}' выдана.\n")
-            else:
-                print(f"Книга '{title}' уже выдана.\n")
+    if title in library:
+        if library[title]["available"] == "в наличии" or library[title]["available"] is None:
+            library[title]["available"] = "выдана"
+            print(f"Книга '{title}' выдана.\n")
         else:
-            print(f"Книга '{title}' в библиотеке не числится.\n")
-    except Exception as e:
-        print(f"Произошла ошибка: {e}")
+            print(f"Книга '{title}' уже выдана.\n")
+    else:
+        print(f"Книга '{title}' в библиотеке не числится.\n")
 
 
 def return_book(title):
-    try:
-        if title in library:
-            if library[title]["available"] == "выдана":
-                library[title]["available"] = "в наличии"
-                print(f"Книга '{title}' в наличии.\n")
-            else:
-                print(f"Книга '{title}' уже в наличии.\n")
+    if title in library:
+        if library[title]["available"] == "выдана" or library[title]["available"] is None:
+            library[title]["available"] = "в наличии"
+            print(f"Книга '{title}' в наличии.\n")
         else:
-            print(f"Книга '{title}' в библиотеке не числится.\n")
-    except Exception as e:
-        print(f"Произошла ошибка: {e}")
+            print(f"Книга '{title}' уже в наличии.\n")
+    else:
+        print(f"Книга '{title}' в библиотеке не числится.\n")
 
 
 book_list_view(library)
@@ -79,6 +68,6 @@ add_book("Полтава", "Пушкин А.С.", "2020")
 
 issue_book("Дубровский")
 
-return_book("Левша")
+return_book("Полтава")
 
 book_list_view(library)
